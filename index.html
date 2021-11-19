@@ -23,17 +23,17 @@
     <div ng-controller="travelData">
         <div class="banner">
             <h1>高雄旅遊網</h1>
-            <select ng-options="s.zipcode as s.zone for s in contents" ng-model="selectValue" ng-change="updateData(selectValue)">
+            <select ng-options="s.zipcode as s.zone for s in contents" ng-model="selectZipcode" ng-change="updateData(selectZipcode)">
                 <option disabled selected value="">--請選擇地區--</option>
             </select>
             <div class="hot">
                 <p>熱門行政區</p>
-                <input type="button" value="三民區" class="placeButton" ng-click="updateData(data='807')">
-                <input type="button" value="大樹區" class="placeButton" ng-click="updateData(data='840')">
-                <input type="button" value="左營區" class="placeButton" ng-click="updateData(data='813')">
-                <input type="button" value="鼓山區" class="placeButton" ng-click="updateData(data='804')">
-                <input type="button" value="鳳山區" class="placeButton" ng-click="updateData(data='830')">
-                <input type="button" value="前鎮區" class="placeButton" ng-click="updateData(data='806')">
+                <input type="button" value="三民區" class="placeButton" ng-click="updateData(selectZipcode='807')">
+                <input type="button" value="大樹區" class="placeButton" ng-click="updateData(selectZipcode='840')">
+                <input type="button" value="左營區" class="placeButton" ng-click="updateData(selectZipcode='813')">
+                <input type="button" value="鼓山區" class="placeButton" ng-click="updateData(selectZipcode='804')">
+                <input type="button" value="鳳山區" class="placeButton" ng-click="updateData(selectZipcode='830')">
+                <input type="button" value="前鎮區" class="placeButton" ng-click="updateData(selectZipcode='806')">
             </div>
         </div>
         <div class="toContent" id="toContent">

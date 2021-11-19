@@ -5,31 +5,28 @@ app.controller("travelData", function($scope, $http) {
             $scope.info = response.data.XML_Head.Infos.Info;
             $scope.filteredSelectZoneData = $scope.info;
             var dataLen = $scope.info.length;
-            placeObjects = [];
+            placeObjects = {};
             for (var i = 0; i < dataLen; i++) {
-                var index = placeObjects.findIndex(function(item) {
-                    return item.zipcode === $scope.info[i].Zipcode; //去對應每筆資料的zipcode，將找到相同zipcode，回傳其索引值
-                });
-                if (index == -1) { //如果這個zipcode沒有在陣列裡，則新增一筆該地區的資料
+                if (!($scope.info[i].Zipcode in placeObjects)) { //如果這個zipcode沒有在陣列裡，則新增一筆該地區的資料
                     var firstIndexOf = $scope.info[i].Add.indexOf($scope.info[i].Zipcode);
                     var lastIndexOf = $scope.info[i].Add.indexOf('區');
                     zone = $scope.info[i].Add.slice(firstIndexOf + $scope.info[i].Zipcode.length, lastIndexOf + 1);
-                    placeObjects.push({
+                    placeObjects[$scope.info[i].Zipcode] = {
                         zipcode: $scope.info[i].Zipcode,
                         zone: zone,
                         info: [$scope.info[i]]
-                    })
+                    }
                 } else { //如果zipcode已存在了，則在這個陣列的該位置放入其景點資料
-                    placeObjects[index].info.push($scope.info[i]);
+                    placeObjects[$scope.info[i].Zipcode].info.push($scope.info[i]);
                 }
             }
             $scope.contents = placeObjects;
             console.log(placeObjects);
         });
 
-    $scope.updateData = function(data) {
-        for (var i = 0; i < placeObjects.length; i++) {
-            if (placeObjects[i].zipcode == data) {
+    $scope.updateData = function(selectZipcode) {
+        for (var i in placeObjects) {
+            if (i === selectZipcode) {
                 $scope.selectZoneData = placeObjects[i].info;
                 $scope.zone = placeObjects[i].zone;
                 $scope.selectValue = placeObjects[i].zipcode; //按按鈕時同時更改下拉選單內的值
@@ -44,5 +41,4 @@ app.controller("travelData", function($scope, $http) {
             $scope.filteredSelectZoneData = $scope.selectZoneData.slice(begin, end);
         });
     }
-
 });
