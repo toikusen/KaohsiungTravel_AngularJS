@@ -241,11 +241,12 @@ body {
 }
 
 .attractions li h3 {
-    padding-top: 300px;
+    top: 230px;
     padding-left: 30px;
     padding-bottom: 15px;
     font-size: 30px;
     color: white;
+    position: absolute;
 }
 
 .attractions li h2 {
@@ -261,9 +262,7 @@ body {
 
 .attractions li .picture {
     width: 100%;
-    height: auto;
-    background-size: cover!important;
-    background-position: center!important;
+    max-height: 300px;
     position: relative;
 }
 
@@ -340,8 +339,4 @@ footer h3 {
 
 .info p {
     margin: 0;
-}
-
-.picture h3 {
-    margin-top: 0;
 }
