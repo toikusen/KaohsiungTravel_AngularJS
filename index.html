@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="picture/icon_favicon.png">
+    <meta name="keywords" content="高雄旅遊、高雄景點、高雄觀光">
+    <meta name="description" content="高雄旅遊網，提供高雄旅遊景點的詳細資料" />
+    <meta property="og:title" content="高雄旅遊網" />
+    <meta property="og:description" content="高雄旅遊網，提供高雄旅遊景點的詳細資料" />
+    <meta property="og:type" content="website" />
+    <title>高雄旅遊網</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.14/angular.min.js"></script>
+    <script src="js/controller.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body ng-app="mainApp">
+    <div ng-controller="travelData">
+        <div class="banner">
+            <h1>高雄旅遊網</h1>
+            <select ng-options="s.zipcode as s.zone for s in contents" ng-model="selectValue" ng-change="updateData(selectValue)">
+                <option disabled selected value="">--請選擇地區--</option>
+            </select>
+            <div class="hot">
+                <p>熱門行政區</p>
+                <input type="button" value="三民區" class="placeButton" ng-click="updateData(data='807')">
+                <input type="button" value="大樹區" class="placeButton" ng-click="updateData(data='840')">
+                <input type="button" value="左營區" class="placeButton" ng-click="updateData(data='813')">
+                <input type="button" value="鼓山區" class="placeButton" ng-click="updateData(data='804')">
+                <input type="button" value="鳳山區" class="placeButton" ng-click="updateData(data='830')">
+                <input type="button" value="前鎮區" class="placeButton" ng-click="updateData(data='806')">
+            </div>
+        </div>
+        <div class="toContent" id="toContent">
+            <a href="#toContent">
+                <img src="./picture/arrow_down.png" class="arrow">
+            </a>
+        </div>
+        <div class="selectArea">
+            <h2>--請選擇地區--</h2>
+            <h2>{{zone}}</h2>
+        </div>
+        <div class="content">
+            <div class="attractions" ng-repeat="content in filteredSelectZoneData">
+                <ul>
+                    <li class="li">
+                        <div class="picture" style="background:url({{content.Picture1}})">
+                            <h3>{{content.Name}}</h3>
+                            <h2>{{content.zone}}</h2>
+                        </div>
+                        <div class="info">
+                            <p><img src="./picture/icons_clock.png" alt="">{{content.Opentime}}</p>
+                            <p><img src="./picture/icons_pin.png" alt="">{{content.Add}}</p>
+                            <p><img src="./picture/icons_phone.png" alt="">{{content.Tel}}</p>
+                            <p><img src="./picture/icons_tag.png" alt="">{{content.Ticketinfo}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pagination">
+            <pagination ng-model="currentPage" total-items="totalItems" items-per-page="itemsPerPage">
+            </pagination>
+        </div>
+    </div>
+
+    <footer>
+        <h1>高雄旅遊網</h1>
+        <h2>資料來源：高雄城市資料平台 https://api.kcg.gov.tw/ServiceList/Detail/9c8e1450-e833-499c-8320-29b36b7ace5c</h2>
+        <h3>Github:https://github.com/toikusen/KaohsiungTravel</h3>
+    </footer>
+
+    <a href="https://github.com/toikusen/KaohsiungTravel#" id="gotop">
+    </a>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'>
+    </script>
+    <script>
+        //GoTop function
+        $(function() {
+            //按下GoTop按鈕時的事件
+            $('#gotop').click(function() {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 'slow'); //緩慢的回到最上方
+                return false;
+            });
+
+            //偵測卷軸滑動時，往下滑超過400px就讓GoTop按鈕出現，少於400px隱藏
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 400) {
+                    $('#gotop').fadeIn();
+                } else {
+                    $('#gotop').fadeOut();
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
